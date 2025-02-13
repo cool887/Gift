@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔴 YOUR DEVICE IS HACKED 🔴</title>
+    <style>
+        body {
+            background-color: black;
+            color: red;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            padding: 50px;
+            animation: flash 0.3s infinite alternate;
+            cursor: none;
+        }
+        
+        @keyframes flash {
+            from { background-color: black; }
+            to { background-color: darkred; }
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 10px yellow;
+        }
+
+        #progress {
+            width: 80%;
+            height: 30px;
+            background-color: grey;
+            margin: 20px auto;
+            border: 2px solid red;
+            position: relative;
+        }
+
+        #bar {
+            width: 0%;
+            height: 100%;
+            background-color: red;
+        }
+
+        #countdown {
+            font-size: 2em;
+            color: yellow;
+            margin-top: 20px;
+        }
+
+        #warning {
+            font-size: 1.5em;
+            color: yellow;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body onload="startPrank()">
+    <h1>🔴 YOUR DEVICE IS HACKED 🔴</h1>
+    <p>All your data is being transferred to the hacker...</p>
+    
+    <div id="progress">
+        <div id="bar"></div>
+    </div>
+
+    <p id="countdown">⏳ Time Left: <span id="timer">2:00</span> ⏳</p>
+    <p id="warning">⚠️ Your negligence has cost you! System crash in progress! ⚠️</p>
+
+    <audio id="hackingSound" loop>
+        <source src="https://www.fesliyanstudios.com/play-mp3/4387" type="audio/mpeg">
+    </audio>
+
+    <audio id="errorBeep">
+        <source src="https://www.soundjay.com/button/beep-10.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="siren">
+        <source src="https://www.fesliyanstudios.com/play-mp3/4388" type="audio/mpeg">
+    </audio>
+
+    <script>
+        let progress = 0;
+        let bar = document.getElementById("bar");
+        let warning = document.getElementById("warning");
+        let hackingSound = document.getElementById("hackingSound");
+        let errorBeep = document.getElementById("errorBeep");
+        let siren = document.getElementById("siren");
+        let timeLeft = 120; // 2 minutes
+        let timerDisplay = document.getElementById("timer");
+
+        function startPrank() {
+            hackingSound.play();
+            siren.play();
+            loadProgress();
+            startCountdown();
+            setTimeout(fakeWebcamWarning, 5000);
+            setInterval(randomPopup, 7000);
+            setTimeout(lockMouse, 3000);
+        }
+
+        function loadProgress() {
+            if (progress < 100) {
+                progress += Math.floor(Math.random() * 10);
+                bar.style.width = progress + "%";
+                setTimeout(loadProgress, 500);
+            } else {
+                warning.style.display = "block";
+                setTimeout(() => alert("Your system has been compromised!"), 1000);
+                setTimeout(() => alert("Attempting to wipe your data..."), 2000);
+                setTimeout(() => alert("ERROR: System crash imminent!"), 4000);
+                errorBeep.play();
+            }
+        }
+
+        function startCountdown() {
+            let countdown = setInterval(() => {
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+                
+                if (timeLeft <= 0) {
+                    clearInterval(countdown);
+                    document.body.innerHTML = "<h1 style='color:white;'>💀 SYSTEM FAILURE DETECTED 💀</h1>";
+                    errorBeep.play();
+                }
+            }, 1000);
+        }
+
+        function fakeWebcamWarning() {
+            alert("🔴 Webcam access detected!
+Your camera is now being streamed to the hacker!");
+        }
+
+        function randomPopup() {
+            let messages = [
+                "⚠️ WARNING: Unauthorized access detected!",
+                "📡 Transferring your data...",
+                "💀 Your personal files are being deleted!",
+                "🛑 Firewall disabled! You are now fully exposed!",
+                "🔴 IP Address Compromised! Location traced!"
+            ];
+            alert(messages[Math.floor(Math.random() * messages.length)]);
+        }
+
+        function lockMouse() {
+            document.body.style.cursor = "none";
+        }
+    </script>
+</body>
+</html>
